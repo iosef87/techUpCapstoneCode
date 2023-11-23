@@ -1,0 +1,19 @@
+<%- include("partials/header.ejs") %>
+
+
+<h1>You can park at these places</h1>
+
+  <p>
+    You have entered <strong><%= postalCode %></strong> as the postal code. Confirm which of the places this refers to. 
+  </p>
+
+  <!-- To include list of places here -->
+  <form action="/duration" method="POST">
+    <div class="form-group">
+        <input name="postalCode" type="text" class="postal-input" placeholder="Enter postal code" />
+        <small id="postalCodeHelp" class="form-text text-muted">Please enter a valid postal code.</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+<%- include("partials/footer.ejs") %>
