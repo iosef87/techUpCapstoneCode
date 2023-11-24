@@ -1,5 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -11,16 +14,45 @@ app.use(express.static("public"))
 
 app.use(bodyParser.urlencoded({extended:true}));
 
+//global variable here
+
 var postalToGo = "179097";
 var addressToGo = "109 North Bridge Road";
 var coordToGo = {xCoord:1,yCoord:15};//to include x and y coordinates
 var date = new Date("2023-11-30 13:00");
 var duration = {hour:1,minute:15}//duration is a list for hr and minutes
 
+//middleware here
+
+//obtain possible addresses using search key entered by user
+function getPossibleAddress(searchVal){
+  const data = JSON.stringify(false);
+  let searchstr="https://www.onemap.gov.sg/api/common/elastic/search?searchVal="+postalToGo+"&returnGeom=Y&getAddrDetails=Y&pageNum=1";
+  const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+  const xhr = new XMLHttpRequest();
+      
+  xhr.addEventListener("readystatechange", function () {
+    if (this.readyState === this.DONE) {
+
+    }
+  });
+  
+  xhr.open("GET", searchstr);
+      
+  xhr.send(data);
+  console.log(xhr);
+  //next();
+}
+
+
+
+//frontend interaction here
+
 app.post('/checkAddress',(req,res) =>{
-    //postalToGo=req.body.postalCode;
-    //to convert postal code to coordinate using gmap api
-    console.log(postalToGo);
+    postalToGo=req.body.postalCode;
+    //to convert postal code to coordinate using onemap api
+    getPossibleAddress(postalToGo);
+    //console.log(postalToGo);
     res.render("choosePlace.ejs",{
         postalCode:postalToGo,
         coordinates:coordToGo,
