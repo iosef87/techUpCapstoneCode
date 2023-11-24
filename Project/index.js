@@ -13,12 +13,12 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 var postalToGo = "179097";
 var addressToGo = "109 North Bridge Road";
-let coordToGo = [];//to include x and y coordinates
-let date = new Date("2023-11-30 1300");
-let duration = [1,15]//duration is a list for hr and minutes
+var coordToGo = {xCoord:1,yCoord:15};//to include x and y coordinates
+var date = new Date("2023-11-30 13:00");
+var duration = {hour:1,minute:15}//duration is a list for hr and minutes
 
 app.post('/checkAddress',(req,res) =>{
-    postalToGo=req.body.postalCode;
+    //postalToGo=req.body.postalCode;
     //to convert postal code to coordinate using gmap api
     console.log(postalToGo);
     res.render("choosePlace.ejs",{
@@ -28,7 +28,7 @@ app.post('/checkAddress',(req,res) =>{
 })
 
 app.post('/duration',(req,res) =>{
-    addressToGo="351D Anchorvale Road"//req.body.postalCode;//to change postalCode to address later
+    //addressToGo=req.body.postalCode;//to change postalCode to address later
     //to convert postal code to coordinate using gmap api
     console.log(addressToGo);
     res.render("duration.ejs",{
@@ -41,12 +41,18 @@ app.post('/getParking',(req,res) =>{
     //convert input date to date object
 
     //get duration input
-    //duration = [req.body.hour,req.body.minutes]
+    //duration = {req.body.hour,req.body.minute}
     //to convert postal code to coordinate using gmap api
+
+    //calculate distance
+
     console.log(date);
     res.render("parking.ejs",{
         postalCode:postalToGo,
         venue:addressToGo,
+        date:date.toLocaleString(),
+        durationHr:duration.hour,
+        durationMin:duration.minute,
     }); 
 })
 
