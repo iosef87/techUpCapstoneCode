@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -26,9 +27,10 @@ var duration = {hour:1,minute:15}//duration is a list for hr and minutes
 
 //obtain possible addresses using search key entered by user
 function getPossibleAddress(searchVal){
+  
   const data = JSON.stringify(false);
-  let searchstr="https://www.onemap.gov.sg/api/common/elastic/search?searchVal="+postalToGo+"&returnGeom=Y&getAddrDetails=Y&pageNum=1";
-  const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+  let searchstr="https://www.onemap.gov.sg/api/common/elastic/search?searchVal="+searchVal+"&returnGeom=Y&getAddrDetails=Y&pageNum=1";
+  
   const xhr = new XMLHttpRequest();
       
   xhr.addEventListener("readystatechange", function () {
@@ -38,9 +40,9 @@ function getPossibleAddress(searchVal){
   });
   
   xhr.open("GET", searchstr);
-      
+  console.log(xhr);    
   xhr.send(data);
-  console.log(xhr);
+  console.log(searchVal);
   //next();
 }
 
