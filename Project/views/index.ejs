@@ -1,0 +1,18 @@
+<%- include("partials/header.ejs") %>
+
+
+  <h1>Where are you going today?</h1>
+
+  <p>
+    Tell us where tou are going today to begin.
+  </p>
+
+  <form action="/checkAddress" method="POST">
+    <div class="form-group">
+        <input name="postalCode" type="text" class="postal-input" placeholder="Enter postal code" />
+        <small id="postalCodeHelp" class="form-text text-muted">Please enter a valid postal code.</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+<%- include("partials/footer.ejs") %>

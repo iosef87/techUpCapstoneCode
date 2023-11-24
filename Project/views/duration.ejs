@@ -1,0 +1,19 @@
+<%- include("partials/header.ejs") %>
+
+
+<h1>How long will you be there?</h1>
+
+  <p>
+    Tell us when you plan to be at <strong><%= venue %></strong>, and for how long. 
+  </p>
+
+  <!-- select time and duration below -->
+  <form action="/getParking" method="POST">
+    <div class="form-group">
+        <input name="postalCode" type="text" class="postal-input" placeholder="Enter postal code" />
+        <small id="postalCodeHelp" class="form-text text-muted">Please enter a valid postal code.</small>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+<%- include("partials/footer.ejs") %>
