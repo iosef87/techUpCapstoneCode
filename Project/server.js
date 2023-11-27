@@ -4,7 +4,7 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-const PORT=process.env.PORT?process.env.PORT:1337;
+const PORT=process.env.PORT?process.env.PORT:8080;
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
