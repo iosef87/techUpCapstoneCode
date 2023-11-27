@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 var postalToGo = "179097";
 var addressToGo = "109 North Bridge Road";
-var coordToGo = {xCoord:1,yCoord:15};//to include x and y coordinates
+var placesToGo = [];//to include x and y coordinates
 var date = new Date("2023-11-30 13:00");
 var duration = {hour:1,minute:15}//duration is a list for hr and minutes
 
@@ -69,11 +69,64 @@ function getPossibleAddress(searchVal){
 app.post('/checkAddress',(req,res) =>{
     postalToGo=req.body.postalCode;
     //to convert postal code to coordinate using onemap api
-    getPossibleAddress(postalToGo);
+    //for testing
+    [
+      {
+        "SEARCHVAL": "FUNAN",
+        "BLK_NO": "109",
+        "ROAD_NAME": "NORTH BRIDGE ROAD",
+        "BUILDING": "FUNAN",
+        "ADDRESS": "109 NORTH BRIDGE ROAD FUNAN SINGAPORE 179097",
+        "POSTAL": "179097",
+        "X": "29855.362511972",
+        "Y": "30416.1814862192",
+        "LATITUDE": "1.29134759697794",
+        "LONGITUDE": "103.849989789813"
+      },
+      {
+        "SEARCHVAL": "FUNAN",
+        "BLK_NO": "107",
+        "ROAD_NAME": "NORTH BRIDGE ROAD",
+        "BUILDING": "FUNAN",
+        "ADDRESS": "107 NORTH BRIDGE ROAD FUNAN SINGAPORE 179105",
+        "POSTAL": "179105",
+        "X": "29854.8061561631",
+        "Y": "30404.7269309964",
+        "LATITUDE": "1.29124400604241",
+        "LONGITUDE": "103.849984790048"
+      },
+      {
+        "SEARCHVAL": "FUNAN O1",
+        "BLK_NO": "109",
+        "ROAD_NAME": "NORTH BRIDGE ROAD",
+        "BUILDING": "FUNAN O1",
+        "ADDRESS": "109 NORTH BRIDGE ROAD FUNAN O1 SINGAPORE 179097",
+        "POSTAL": "179097",
+        "X": "29887.9367647087",
+        "Y": "30418.9446201846",
+        "LATITUDE": "1.29137258384263",
+        "LONGITUDE": "103.850282483296"
+      },
+      {
+        "SEARCHVAL": "FUNAN O2",
+        "BLK_NO": "109",
+        "ROAD_NAME": "NORTH BRIDGE ROAD",
+        "BUILDING": "FUNAN O2",
+        "ADDRESS": "109 NORTH BRIDGE ROAD FUNAN O2 SINGAPORE 179097",
+        "POSTAL": "179097",
+        "X": "29842.5918745501",
+        "Y": "30390.9751266148",
+        "LATITUDE": "1.29111964028141",
+        "LONGITUDE": "103.849875038808"
+      }
+    ]
+    //end testing
+    //placestoGo=getPossibleAddress(postalToGo);
     //console.log(postalToGo);
     res.render("choosePlace.ejs",{
         postalCode:postalToGo,
         coordinates:coordToGo,
+        places:placesToGo,
     }); 
 })
 
