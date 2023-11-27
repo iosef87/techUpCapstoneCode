@@ -31,6 +31,19 @@ var duration = {hour:1,minute:15}//duration is a list for hr and minutes
 function getPossibleAddress(searchVal){
   
   const data = JSON.stringify(false);
+      
+  const xhr = new XMLHttpRequest();
+      
+  xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === this.DONE) {
+        }
+      });
+      
+  xhr.open("GET", "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=200640&returnGeom=Y&getAddrDetails=Y&pageNum=1");
+      
+  xhr.send(data);
+  console.log(xhr);
+  /*const data = JSON.stringify(false);
   let searchstr="https://www.onemap.gov.sg/api/common/elastic/search?searchVal="+searchVal+"&returnGeom=Y&getAddrDetails=Y&pageNum=1";
   
   const xhr = new XMLHttpRequest();
@@ -45,7 +58,7 @@ function getPossibleAddress(searchVal){
   xhr.open("GET", searchstr);
   console.log(xhr);    
   xhr.send(data);
-  console.log(xhr.responseXML);
+  console.log(xhr.responseXML);*/
   //next();
 }
 
