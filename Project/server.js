@@ -13,6 +13,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 app.use(express.static("public"));
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended:true}));
 
