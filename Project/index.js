@@ -4,12 +4,13 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
+const PORT=process.env.PORT?process.env.PORT:1337;
+
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
-const port = 8080;
 
 app.use(express.static("public"))
 
@@ -99,6 +100,6 @@ app.get('/about',(req,res) =>{
   res.render("about.ejs");
 })
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
