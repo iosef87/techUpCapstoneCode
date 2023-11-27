@@ -8,33 +8,17 @@
   </p>
 
   <!-- To include list of places here -->
-  <div class="dropdown">
-    <button action="/duration" method="POST" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Places
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-    </div>
-  </div>
-
-  <h2>Places:</h3>
+  <h2>Places:</h2>
   <ul id="places">
-        
+    
+    <form action="/duration" method="POST">
     <% for(var listnum=0;listnum<places.length;listnum++) { %>
-
-      <span onclick="getId('<%= listnum %>')"><%=places[listnum].ADDRESS%></span>
-      
-    <% } %>
-  </ul>
-  
-  <form action="/duration" method="POST">
-    <div class="form-group">
-        <input name="postalCode" type="text" class="postal-input" placeholder="Enter postal code" />
-        <small id="postalCodeHelp" class="form-text text-muted">Please enter a valid postal code.</small>
+      <p>
+        <button class="btn btn-outline-primary" type="submit" data-id="<%=listnum%>"> <%=places[listnum].ADDRESS%> </button>
+      </p>
+    <%}%>
+    </form>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  </ul>
 
 <%- include("partials/footer.ejs") %>

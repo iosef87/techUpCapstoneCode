@@ -70,7 +70,7 @@ app.post('/checkAddress',(req,res) =>{
     postalToGo=req.body.postalCode;
     //to convert postal code to coordinate using onemap api
     //for testing
-    [
+    placesToGo=[
       {
         "SEARCHVAL": "FUNAN",
         "BLK_NO": "109",
@@ -120,12 +120,12 @@ app.post('/checkAddress',(req,res) =>{
         "LONGITUDE": "103.849875038808"
       }
     ]
+    //console.log(placesToGo);
     //end testing
     //placestoGo=getPossibleAddress(postalToGo);
     //console.log(postalToGo);
     res.render("choosePlace.ejs",{
         postalCode:postalToGo,
-        coordinates:coordToGo,
         places:placesToGo,
     }); 
 })
