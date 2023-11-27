@@ -39,10 +39,11 @@ function getPossibleAddress(searchVal){
     }
   });
   
+  console.log(searchstr);
   xhr.open("GET", searchstr);
   console.log(xhr);    
   xhr.send(data);
-  console.log(searchVal);
+  console.log(xhr.responseXML);
   //next();
 }
 
