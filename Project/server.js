@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { createRequire } from "module";
+import https from "https";
 const require = createRequire(import.meta.url);
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
@@ -21,15 +22,16 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 var postalToGo = "179097";
 var addressToGo = "109 North Bridge Road";
-var placesToGo = [];//to include x and y coordinates
+var placesToGo = [];//to include search results
 var date = new Date("2023-11-30 13:00");
 var duration = {hour:1,minute:15}//duration is a list for hr and minutes
 
 //middleware here
 
 //obtain possible addresses using search key entered by user
-function getPossibleAddress(searchVal){
+function getPossibleAddress(searchVal,callback){
   
+  let searchstr="https://www.onemap.gov.sg/api/common/elastic/search?searchVal="+searchVal+"&returnGeom=Y&getAddrDetails=Y&pageNum=1";
   const data = JSON.stringify(false);
       
   const xhr = new XMLHttpRequest();
@@ -38,28 +40,19 @@ function getPossibleAddress(searchVal){
         if (this.readyState === this.DONE) {
         }
       });
-      
-  xhr.open("GET", "https://www.onemap.gov.sg/api/common/elastic/search?searchVal=200640&returnGeom=Y&getAddrDetails=Y&pageNum=1");
-      
-  xhr.send(data);
-  console.log(xhr);
-  /*const data = JSON.stringify(false);
-  let searchstr="https://www.onemap.gov.sg/api/common/elastic/search?searchVal="+searchVal+"&returnGeom=Y&getAddrDetails=Y&pageNum=1";
-  
-  const xhr = new XMLHttpRequest();
-      
-  xhr.addEventListener("readystatechange", function () {
-    if (this.readyState === this.DONE) {
-
-    }
-  });
-  
-  console.log(searchstr);
+       
   xhr.open("GET", searchstr);
-  console.log(xhr);    
+  
+  xhr.onload = () => {
+    // Request finished. Do processing here.
+    const obj = JSON.parse(xhr.responseText);
+    placesToGo=obj.results;
+    console.log(placesToGo);
+  };
+
+
   xhr.send(data);
-  console.log(xhr.responseXML);*/
-  //next();
+
 }
 
 
@@ -70,7 +63,7 @@ app.post('/checkAddress',(req,res) =>{
     postalToGo=req.body.postalCode;
     //to convert postal code to coordinate using onemap api
     //for testing
-    placesToGo=[
+    /*placesToGo=[
       {
         "SEARCHVAL": "FUNAN",
         "BLK_NO": "109",
@@ -121,8 +114,9 @@ app.post('/checkAddress',(req,res) =>{
       }
     ]
     //console.log(placesToGo);
+    */
     //end testing
-    //placestoGo=getPossibleAddress(postalToGo);
+    getPossibleAddress(postalToGo);
     //console.log(postalToGo);
     res.render("choosePlace.ejs",{
         postalCode:postalToGo,
