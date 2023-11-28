@@ -63,7 +63,7 @@ app.post('/checkAddress',(req,res) =>{
     postalToGo=req.body.postalCode;
     //to convert postal code to coordinate using onemap api
     //for testing
-    /*placesToGo=[df
+    /*placesToGo=[
       {
         "SEARCHVAL": "FUNAN",
         "BLK_NO": "109",
