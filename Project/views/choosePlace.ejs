@@ -10,7 +10,7 @@
   <!-- To include list of places here -->
   <h2>Places:</h2>
   <ul id="places">
-    
+    <div>
     <form action="/duration" method="POST">
    
     <% for(var listnum=0;listnum<places.length;listnum++) { %>
@@ -20,6 +20,12 @@
     <%}%>
     </form>
     </div>
+
+    <form action="/" method="get">
+      <p>
+        <button class="btn btn-outline-dark" name="back" > Place not found? Refine your search </button>
+      </p>
+    </form>
   </ul>
 
 <%- include("partials/footer.ejs") %>
