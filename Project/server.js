@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 var postalToGo = "179097";
 var addressToGo = "109 North Bridge Road";
 var placesToGo = [];//to include search results
+var selectedPlace;
 var date = new Date("2023-11-30 13:00");
 var duration = {hour:1,minute:15}//duration is a list for hr and minutes
 
@@ -117,7 +118,7 @@ app.post('/checkAddress',(req,res) =>{
     */
     //end testing
     getPossibleAddress(postalToGo);
-    //console.log(postalToGo);
+    console.log(postalToGo.length);
     res.render("choosePlace.ejs",{
         postalCode:postalToGo,
         places:placesToGo,
@@ -127,10 +128,11 @@ app.post('/checkAddress',(req,res) =>{
 app.post('/duration',(req,res) =>{
     //addressToGo=req.body.postalCode;//to change postalCode to address later
     //to convert postal code to coordinate using gmap api
-    console.log(addressToGo);
+    selectedPlace=req.body.selectedAddress;
+    console.log(selectedPlace);
     res.render("duration.ejs",{
         postalCode:postalToGo,
-        venue:addressToGo,
+        venue:selectedPlace,
     }); 
 })
 

@@ -4,7 +4,7 @@
 <h1>Where are you going today?</h1>
 
   <p>
-    You have entered <strong><%= postalCode %></strong> as the postal code. Confirm which of the places this refers to. 
+    You have entered <strong><%= postalCode %></strong> as the postal code. Confirm which of the <%= places.length %> places you were referring to. 
   </p>
 
   <!-- To include list of places here -->
@@ -12,9 +12,10 @@
   <ul id="places">
     
     <form action="/duration" method="POST">
+   
     <% for(var listnum=0;listnum<places.length;listnum++) { %>
       <p>
-        <button class="btn btn-outline-primary" type="submit" data-id="<%=listnum%>"> <%=places[listnum].ADDRESS%> </button>
+        <button class="btn btn-outline-primary" type="submit" name="selectedAddress" value="<%=places[listnum].ADDRESS%> "> <%=places[listnum].ADDRESS%> </button>
       </p>
     <%}%>
     </form>
