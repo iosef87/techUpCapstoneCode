@@ -33,7 +33,6 @@ var duration = {hour:1,minute:15}//duration is a list for hr and minutes
 
 //obtain possible addresses using search key entered by user
 function getPossibleAddress(searchVal, callback){
-  console.log('api key is', process.env.API_KEY)
   let searchstr="https://www.onemap.gov.sg/api/common/elastic/search?searchVal="+searchVal+"&returnGeom=Y&getAddrDetails=Y&pageNum=1";
   const data = JSON.stringify(false);
       
@@ -51,7 +50,7 @@ function getPossibleAddress(searchVal, callback){
     const obj = JSON.parse(xhr.responseText);
     placesToGo=obj.results;
     console.log('from one map', placesToGo)
-    callback()
+    callback();
   };
 
 
@@ -59,10 +58,7 @@ function getPossibleAddress(searchVal, callback){
 
 }
 
-
-
-//frontend interaction here
-
+//callback function to be called when api request is done
 function checkAddressCallback(res) {
   res.render("choosePlace.ejs",{
     postalCode:postalToGo,
@@ -70,66 +66,13 @@ function checkAddressCallback(res) {
 });
 }
 
+
+//frontend interaction here
+
 app.post('/checkAddress',(req,res) =>{
     postalToGo=req.body.postalCode;
     //to convert postal code to coordinate using onemap api
-    //for testing
-    /*placesToGo=[
-      {
-        "SEARCHVAL": "FUNAN",
-        "BLK_NO": "109",
-        "ROAD_NAME": "NORTH BRIDGE ROAD",
-        "BUILDING": "FUNAN",
-        "ADDRESS": "109 NORTH BRIDGE ROAD FUNAN SINGAPORE 179097",
-        "POSTAL": "179097",
-        "X": "29855.362511972",
-        "Y": "30416.1814862192",
-        "LATITUDE": "1.29134759697794",
-        "LONGITUDE": "103.849989789813"
-      },
-      {
-        "SEARCHVAL": "FUNAN",
-        "BLK_NO": "107",
-        "ROAD_NAME": "NORTH BRIDGE ROAD",
-        "BUILDING": "FUNAN",
-        "ADDRESS": "107 NORTH BRIDGE ROAD FUNAN SINGAPORE 179105",
-        "POSTAL": "179105",
-        "X": "29854.8061561631",
-        "Y": "30404.7269309964",
-        "LATITUDE": "1.29124400604241",
-        "LONGITUDE": "103.849984790048"
-      },
-      {
-        "SEARCHVAL": "FUNAN O1",
-        "BLK_NO": "109",
-        "ROAD_NAME": "NORTH BRIDGE ROAD",
-        "BUILDING": "FUNAN O1",
-        "ADDRESS": "109 NORTH BRIDGE ROAD FUNAN O1 SINGAPORE 179097",
-        "POSTAL": "179097",
-        "X": "29887.9367647087",
-        "Y": "30418.9446201846",
-        "LATITUDE": "1.29137258384263",
-        "LONGITUDE": "103.850282483296"
-      },
-      {
-        "SEARCHVAL": "FUNAN O2",
-        "BLK_NO": "109",
-        "ROAD_NAME": "NORTH BRIDGE ROAD",
-        "BUILDING": "FUNAN O2",
-        "ADDRESS": "109 NORTH BRIDGE ROAD FUNAN O2 SINGAPORE 179097",
-        "POSTAL": "179097",
-        "X": "29842.5918745501",
-        "Y": "30390.9751266148",
-        "LATITUDE": "1.29111964028141",
-        "LONGITUDE": "103.849875038808"
-      }
-    ]
-    //console.log(placesToGo);
-    */
-    //end testing
     getPossibleAddress(postalToGo, () => checkAddressCallback(res));
-  
-    console.log(postalToGo.length);  
 })
 
 app.post('/duration',(req,res) =>{
