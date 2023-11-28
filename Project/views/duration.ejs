@@ -8,7 +8,27 @@
   </p>
 
   <!-- select time and duration below. to return in date, hour, and minute -->
-  <form action="/getParking" method="POST">
+  <form action="/getParking" method="POST" class="two-column-grid">
+    <div id="date">
+      <label for="date">Date:</label>
+      <br>
+      <input type="date" id="date" name="startDate" required="">    
+    </div>
+    <div id="time">
+      <label for="startTime">Start Time:</label>
+      <br>
+      <select id="startTime" name="startTime" required>
+        <% for(var hhour=0;hhour<24;hhour++) { %>
+          <% for(var mmin=0;mmin<60;mmin+=15) { %>
+            <% const formattedHour = hhour.toString().padStart(2, '0'); %>
+            <% const formattedMinute = mmin.toString().padStart(2, '0'); %>
+            <option value="<% formattedHour + ':' + formattedMinute %>"> <% formattedHour  + ':' +  formattedMinute %> </option>
+        <% } %>
+      <% } %>
+      </select>
+
+    </div>
+    
     <div class="form-group">
         <input name="postalCode" type="text" class="postal-input" placeholder="Enter postal code" />
         <small id="postalCodeHelp" class="form-text text-muted">Please enter a valid postal code.</small>
