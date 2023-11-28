@@ -5,6 +5,9 @@ import https from "https";
 const require = createRequire(import.meta.url);
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 const PORT=process.env.PORT?process.env.PORT:8080;
 
 import { dirname } from "path";
@@ -19,7 +22,6 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 
 //global variable here
-
 var postalToGo = "179097";
 var addressToGo = "109 North Bridge Road";
 var placesToGo = [];//to include search results
@@ -30,8 +32,8 @@ var duration = {hour:1,minute:15}//duration is a list for hr and minutes
 //middleware here
 
 //obtain possible addresses using search key entered by user
-function getPossibleAddress(searchVal,callback){
-  
+function getPossibleAddress(searchVal, callback){
+  console.log('api key is', process.env.API_KEY)
   let searchstr="https://www.onemap.gov.sg/api/common/elastic/search?searchVal="+searchVal+"&returnGeom=Y&getAddrDetails=Y&pageNum=1";
   const data = JSON.stringify(false);
       
@@ -48,7 +50,8 @@ function getPossibleAddress(searchVal,callback){
     // Request finished. Do processing here.
     const obj = JSON.parse(xhr.responseText);
     placesToGo=obj.results;
-    console.log(placesToGo);
+    console.log('from one map', placesToGo)
+    callback()
   };
 
 
@@ -59,6 +62,13 @@ function getPossibleAddress(searchVal,callback){
 
 
 //frontend interaction here
+
+function checkAddressCallback(res) {
+  res.render("choosePlace.ejs",{
+    postalCode:postalToGo,
+    places:placesToGo,
+});
+}
 
 app.post('/checkAddress',(req,res) =>{
     postalToGo=req.body.postalCode;
@@ -117,12 +127,9 @@ app.post('/checkAddress',(req,res) =>{
     //console.log(placesToGo);
     */
     //end testing
-    getPossibleAddress(postalToGo);
-    console.log(postalToGo.length);
-    res.render("choosePlace.ejs",{
-        postalCode:postalToGo,
-        places:placesToGo,
-    }); 
+    getPossibleAddress(postalToGo, () => checkAddressCallback(res));
+  
+    console.log(postalToGo.length);  
 })
 
 app.post('/duration',(req,res) =>{
