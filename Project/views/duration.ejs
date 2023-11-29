@@ -8,27 +8,51 @@
 </h5>
 
   <!-- select time and duration below. to return in date, hour, and minute -->
-  <form action="/getParking" method="POST" class="two-column-grid">
-    <div id="date">
-      <label for="date">Date:</label>
-      <br>
-      <input type="date" id="date" name="startDate" required="">    
+  <div class="container">
+  <form action="/getParking" method="POST" >
+    <div class="row g-3 justify-content-center">
+      <div id="date" class="col-auto">
+        <label for="date">Date:</label>
+        <br>
+        <input type="date" id="date" name="startDate" required="">    
+      </div>
+      <div id="time" class="col-auto">
+        <label for="startTime">Start Time:</label>
+        <br>
+        <select id="hours" name="startHour" required>
+          <!-- Generating options for hours from 0 to 20 -->
+          <% for (let i = 0; i < 24; i++) { %>
+            <option value="<%= i %>"><%= i %></option>
+          <% } %>
+        </select>
+        <select id="minutes" name="startMinute" required>
+          <!-- Generating options for minutes in increments of 15 -->
+          <% for (let i = 0; i < 60; i += 15) { %>
+            <option value="<%= i %>"><%= i %></option>
+          <% } %>
+        </select>
+      </div>
+      <div id="duratiom" class="col-auto">
+        <label for="Duration">Duration:</label>
+        <br>
+        <select id="hours" name="hHour" required>
+          <!-- Generating options for hours from 0 to 20 -->
+          <% for (let i = 0; i < 20; i++) { %>
+            <option value="<%= i %>"><%= i %></option>
+          <% } %>
+        </select>
+        <select id="minutes" name="mMinute" required>
+          <!-- Generating options for minutes in increments of 15 -->
+          <% for (let i = 0; i < 60; i += 15) { %>
+            <option value="<%= i %>"><%= i %></option>
+          <% } %>
+        </select>
+      </div>
     </div>
-    <div id="time">
-      <label for="startTime">Start Time:</label>
-      <br>
-      <select id="startTime" name="startTime" required>
-        <% for(var hhour=0;hhour<24;hhour++) { %>
-          <% for(var mmin=0;mmin<60;mmin+=15) { %>
-            <% const formattedHour = hhour.toString().padStart(2, '0'); %>
-            <% const formattedMinute = mmin.toString().padStart(2, '0'); %>
-            <option value="<% formattedHour + ':' + formattedMinute %>"> <% formattedHour  + ':' +  formattedMinute %> </option>
-        <% } %>
-      <% } %>
-      </select>
-
+      <br><br>
+    <div class="row">
+      <button type="submit" class="btn btn-primary">Submit</button>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
   </form>
-
+</div>
 <%- include("partials/footer.ejs") %>
