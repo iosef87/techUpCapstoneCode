@@ -85,3 +85,7 @@ textarea {
 [type="submit"]:hover {
   background: #3586ff;
 }
+
+.align-left {
+  text-align: left;
+}

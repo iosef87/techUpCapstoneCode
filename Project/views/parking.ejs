@@ -9,12 +9,35 @@
   </p>
 
   <!-- To include list of places here -->
-  <form action="/duration" method="POST">
-    <div class="form-group">
-        <input name="postalCode" type="text" class="postal-input" placeholder="Enter postal code" />
-        <small id="postalCodeHelp" class="form-text text-muted">Please enter a valid postal code.</small>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  <div>
+    <table name="output" <table class="table table-sm ">
+      <thead class="table-primary">
+        <tr>
+          <th class="align-left">Carpark</th>
+          <th>Distance to destination</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="align-left"> <a href="https://www.google.com/maps/search/?api=1&query=Funan" target="_blank"><button class="btn btn-primary"><i class="material-icons" >place</i>Funan</button></a></td>
+          <td>0 min (0.0 m)</td>
+          <td>$5</td>
+        </tr>
+        <tr>
+          <td class="align-left"> <a href="https://www.google.com/maps/search/?api=1&query=5+Coleman+St" target="_blank"><i class="material-icons" >place</i> 5 Coleman St, Singapore 179804</a></td>
+          <td>3 min (190.0 m)</td>
+          <td>$6</td>
+        </tr>
+        <tr>
+          <td class="align-left"> <a href="https://www.google.com/maps/search/?api=1&query=The+Adephi" target="_blank">The Adephi, Singapore 179803</a></td>
+          <td>3 min (240.0 m)</td>
+          <td>$5</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
 
 <%- include("partials/footer.ejs") %>

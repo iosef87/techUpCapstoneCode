@@ -49,10 +49,10 @@ function getPossibleAddress(searchVal, callback){
     // Request finished. Do processing here.
     const obj = JSON.parse(xhr.responseText);
     placesToGo=obj.results;
-    console.log('from one map', placesToGo)
+    //console.log('from one map', placesToGo)
+    //use callback function to process the data only on response from onemap
     callback();
   };
-
 
   xhr.send(data);
 
@@ -88,14 +88,16 @@ app.post('/duration',(req,res) =>{
 
 app.post('/getParking',(req,res) =>{
     //convert input date to date object
-
+    console.log(date.getHours());
+    date = new Date(req.body.startDate+" "+req.body.startHour+":"+req.body.startMinute);
     //get duration input
-    //duration = {req.body.hour,req.body.minute}
+    duration.hour = req.body.hHour;
+    duration.minute = req.body.mMinute;
     //to convert postal code to coordinate using gmap api
 
     //calculate distance
 
-    console.log(date);
+    console.log(req.body,"\ndate",date,"\duration",duration);
     res.render("parking.ejs",{
         postalCode:postalToGo,
         venue:addressToGo,
